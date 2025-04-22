@@ -105,8 +105,6 @@
         android:id="@+id/tv_sentence"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:fontFamily="@font/relay_inter_bold"
-        android:gravity="fill"
         android:text="Welcome to EnjoyReading!"
         android:textColor="#80000000"
         app:autoSizeTextType="uniform"

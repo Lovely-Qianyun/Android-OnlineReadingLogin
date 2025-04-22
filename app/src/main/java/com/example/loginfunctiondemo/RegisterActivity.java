@@ -1,5 +1,6 @@
 package com.example.loginfunctiondemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,8 +25,10 @@ public class RegisterActivity extends AppCompatActivity {
         etConfirmPassword = findViewById(R.id.et_confirm_password);
         Button btnRegister = findViewById(R.id.btn_register);
         Button btnBack = findViewById(R.id.btn_back);
+        Button btnLogin = findViewById(R.id.btn_login);
 
         btnRegister.setOnClickListener(v -> handleRegistration());
+        btnLogin.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
         btnBack.setOnClickListener(v -> finish());
     }
 
