@@ -7,14 +7,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
 public class RegisterActivity extends AppCompatActivity {
     private EditText etName, etPhone, etPassword, etConfirmPassword;
+    private UserDatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        dbHelper = new UserDatabaseHelper(this);
 
         etName = findViewById(R.id.et_name);
         etPhone = findViewById(R.id.et_phone);
@@ -43,10 +45,17 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        // Add the actual registration logic here
-        Toast.makeText(this, "Successful registration", Toast.LENGTH_SHORT).show();
-        finish();
+        if (dbHelper.isPhoneExists(phone)) {
+            Toast.makeText(this, "Phone number already registered", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        long id = dbHelper.addUser(name, phone, password);
+        if (id > 0) {
+            Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
+            Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
+        }
     }
-
-
 }

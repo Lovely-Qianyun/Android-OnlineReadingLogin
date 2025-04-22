@@ -11,11 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etPhone, etPassword;
+    private UserDatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        dbHelper = new UserDatabaseHelper(this);
 
         etPhone = findViewById(R.id.et_phone);
         etPassword = findViewById(R.id.et_password);
@@ -37,7 +40,10 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+        if (dbHelper.validateUser(phone, password)) {
+            Toast.makeText(this, "Login Success", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Invalid phone number or password", Toast.LENGTH_SHORT).show();
+        }
     }
 }
